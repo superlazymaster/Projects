@@ -1,6 +1,6 @@
 - 👋 Hi, I’m @superlazymaster
-- 👀 I’m interested in Cross platform App Development 
-- 🌱 I’m currently learning C++, Hack The Box, noSQL, SQL
+- 👀 I’m interested in Network Engineering 
+- 🌱 I’m currently learning C++, Haskell, and Computer Organization
 - 📫 My Discord id is #Sesha9850
 - 😄 Pronouns: He/Him
 - ⚡ Fun fact: I completely rendered my hard drive unusable, neither readable or writable, trying to hackintosh my windows machine. It was filled with so many bad sectors. 
