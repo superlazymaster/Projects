@@ -1,0 +1,13 @@
+// Seshadithya Saravanan 533007949
+
+CHIP RCA5 {
+    IN a[5], b[5];
+    OUT sum[5];
+
+PARTS:
+	HalfAdder(a=a[0],b=b[0],sum=sum[0],carry=c01);
+	FullAdder(a=a[1],b=b[1],c=c01,sum=sum[1],carry=c12);
+   	FullAdder(a=a[2],b=b[2],c=c12,sum=sum[2],carry=c23);
+	FullAdder(a=a[3],b=b[3],c=c23,sum=sum[3],carry=c32);
+    FullAdder(a=a[4],b=b[4],c=c32,sum=sum[4],carry=discard);	
+}

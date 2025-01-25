@@ -1,0 +1,28 @@
+// Seshadithya Saravanan 533007949
+
+/**
+ * Adds or Subtracts two 10-bit values.
+ * Both inputs a and b are in SIGNED 2s complement format
+ * when sub == 0, the chip performs add i.e. out=a+b
+ * when sub == 1, the chip performs subtract i.e. out=a-b
+ * overflow must be accurate for both positive and negative numbers
+ * be sure to look at the lab on subtraction as well as the practice question set9
+ * to understand how to correctly implement overflow in the case of 2s complement signed numbers
+ */
+
+CHIP AddSub10 {
+    IN a[10], b[10], sub;
+    OUT out[10],overflow;
+
+    PARTS:
+   // Put your code here:
+   // calculate b's complement
+   Not16(in[0..9]=b, in[10..15]=false, out[0..9]=notb);
+   Mux16(a[0..9]=b, a[10..15]=false, b[0..9]=notb, b[10..15]=false, sel=sub, out[0..3]=out1, out[4..7]=out2, out[8]=out3, out[9]=out4);
+
+   Add4(a=a[0..3], b=out1, c=sub, out=out[0..3], carry=c1);
+   Add4(a=a[4..7], b=out2, c=c1, out=out[4..7], carry=c2);
+   FullAdder(a=a[8], b=out3, c=c2, sum=out[8], carry=msb1);
+   FullAdder(a=a[9], b=out4, c=msb1, sum=out[9], carry=msb2);
+   Xor(a=msb1, b=msb2, out=overflow);
+}

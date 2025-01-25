@@ -1,0 +1,30 @@
+// Name and UIN
+
+/**
+ * Counts the number of active(1) bits in a 16-bit input and outputs the result as a 5-bit
+ */
+
+CHIP ActiveCounter16 {
+    IN in[16];
+    OUT out[5];
+
+    PARTS:
+    // Put your code here:
+    RCA5(a=false, b[0]=in[0], b[1..4]=false, sum=sum1);
+    RCA5(a=sum1, b[0]=in[1], b[1..4]=false, sum=sum2) ;
+    RCA5(a=sum2, b[0]=in[2], b[1..4]=false, sum=sum3) ;
+    RCA5(a=sum3, b[0]=in[3], b[1..4]=false, sum=sum4) ;
+    RCA5(a=sum4, b[0]=in[4], b[1..4]=false, sum=sum5) ;
+    RCA5(a=sum5, b[0]=in[5], b[1..4]=false, sum=sum6) ;
+    RCA5(a=sum6, b[0]=in[6], b[1..4]=false, sum=sum7) ;
+    RCA5(a=sum7, b[0]=in[7], b[1..4]=false, sum=sum8) ;
+    RCA5(a=sum8, b[0]=in[8], b[1..4]=false, sum=sum9) ;
+    RCA5(a=sum9, b[0]=in[9], b[1..4]=false, sum=sum10) ;
+    RCA5(a=sum10, b[0]=in[10], b[1..4]=false, sum=sum11 );
+    RCA5(a=sum11, b[0]=in[11], b[1..4]=false, sum=sum12 );
+    RCA5(a=sum12, b[0]=in[12], b[1..4]=false, sum=sum13 );
+    RCA5(a=sum13, b[0]=in[13], b[1..4]=false, sum=sum14 );
+    RCA5(a=sum14, b[0]=in[14], b[1..4]=false, sum=sum15 );
+    RCA5(a=sum15, b[0]=in[15], b[1..4]=false, sum=out);
+
+}

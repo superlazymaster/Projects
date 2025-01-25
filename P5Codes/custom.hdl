@@ -1,0 +1,9 @@
+CHIP custom {
+	
+    
+    OUT out[16];      // Output from the memory
+
+    PARTS:
+
+    Not16(in[15]=false, in[14]=true, in[13]=false, in[0..12]=true, out=out);
+}

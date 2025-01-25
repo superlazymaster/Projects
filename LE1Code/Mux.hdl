@@ -1,0 +1,18 @@
+//Seshadithya Saravanan 533007949
+
+/** 
+ * Multiplexor:
+ * out = a if sel == 0
+ *       b otherwise
+ */
+
+CHIP Mux {
+    IN a, b, sel;
+    OUT out;
+
+    PARTS:
+    Not(in=sel, out=notSel);
+    And(a=notSel, b=a, out=notSelAnda);
+    And(a=sel, b=b, out=bAndSel);
+    Or(a=notSelAnda, b=bAndSel, out=out);
+}

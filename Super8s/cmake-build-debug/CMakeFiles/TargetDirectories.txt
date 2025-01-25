@@ -1,0 +1,3 @@
+/Users/seshadithyasaravanan/Desktop/CSCE-120/Super8s/cmake-build-debug/CMakeFiles/Super8s.dir
+/Users/seshadithyasaravanan/Desktop/CSCE-120/Super8s/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/seshadithyasaravanan/Desktop/CSCE-120/Super8s/cmake-build-debug/CMakeFiles/rebuild_cache.dir

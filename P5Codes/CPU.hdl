@@ -1,0 +1,119 @@
+// Seshadithya Saravanan 533007949
+
+CHIP CPU{
+
+    IN  fromM[16],          // M value input  (M = contents of RAM[Address])
+        In[16],    	        // Instruction for execution
+        Reset;              // Signals whether to re-start the current
+                            // program (Reset==1) or continue executing
+                            // the current program (Reset==0).
+
+    OUT toM[16],            // M value output
+        writeM,             // Write to M 
+        addressM[16],       // Address in data memory (of M)
+        PCOut[16];          // address of next instruction
+
+    PARTS:
+    // Instruction bits along with the inverted versions
+
+    // Make a split between the four types of instructions
+    DMux4Way(in=true, sel=In[14..15], a=arithmetic, b=logical, c=memoryandbranch, d=IO);
+    // Make a split between memory and branching
+    DMux4Way(in=memoryandbranch, sel=In[12..13], a=read, b=beq, c=write, d=jmp);
+
+    DMux4Way(in=IO, sel=In[12..13], a=screenwrite, b=discard1, c=keyboardRead, d=discard2);
+    // 1. Register control //
+
+    // Load the register only when arithmetic, logical, when reading memory/keyboard
+
+    Or8Way(in[0]=arithmetic, in[1]=logical, in[2]=read, in[3]=keyboardRead, in[4..7]=false, out=regLoad);
+
+    // Which register should I load
+    DMux8Way(in=regLoad, sel=In[9..11], a=reg1, b=reg2, c=reg3, d=reg4, e=reg5, f=reg6, g=reg7, h=reg8);
+
+
+    // What data should be passed into the registers? Computation or Memory?
+
+    Mux16(a=outALU, b=fromM, sel=In[15], out=regIn);
+    
+    Register(in=regIn, load=reg1, out=outReg1);
+    Register(in=regIn, load=reg2, out=outReg2);
+    Register(in=regIn, load=reg3, out=outReg3);
+    Register(in=regIn, load=reg4, out=outReg4);
+    Register(in=regIn, load=reg5, out=outReg5);
+    Register(in=regIn, load=reg6, out=outReg6);
+    Register(in=regIn, load=reg7, out=outReg7);
+    Register(in=regIn, load=reg8, out=outReg8);
+
+    // What are the inputs for the ALU? Two registers or One register and a raw value
+
+    Mux8Way16(a=outReg1, b=outReg2, c=outReg3, d=outReg4, e=outReg5, f=outReg6, g=outReg7, h=outReg8, sel=In[6..8], out=inX);
+    Mux8Way16(a=outReg1, b=outReg2, c=outReg3, d=outReg4, e=outReg5, f=outReg6, g=outReg7, h=outReg8, sel=In[3..5], out=tempinY);
+
+
+
+    // First mux between register and constant value
+    Mux16(a=tempinY, b[0..5]=In[0..5], b[6..15]=false, sel=In[12], out=temp2inY);
+
+    // then mux between whether it is a arithmetic/logical operation
+    Mux4Way16(a=temp2inY, b=tempinY, c=false, d=false, sel=In[14..15], out=inY);
+
+    ALU(AluOp=In[12..15], x=inX, y=inY, AluOut=outALU, overflow=unused);
+    // Register control //
+
+    
+    // 2. ALU  //
+
+
+
+    // ALU //
+
+
+
+    // 3. Prepare the Memory Address addressM (in case of READ and Write), Memory Data toM (in case of Write or OUT)
+
+    // Only Ry will be written to memory. So toM has to choose from 8 registers
+
+    Mux8Way16(a=outReg1, b=outReg2, c=outReg3, d=outReg4, e=outReg5, f=outReg6, g=outReg7, h=outReg8, sel=In[6..8], out=toM);
+
+    // addressM //
+
+    Mux8Way16(a=outReg1, b=outReg2, c=outReg3, d=outReg4, e=outReg5, f=outReg6, g=outReg7, h=outReg8, sel=In[9..11], out=Rx);
+
+    custom(out=keyboardadd);
+
+    Mux8Way16(a=inX, b=false, c=Rx, d=false, e=Rx, f=false, g=keyboardadd, h=false, sel=In[12..14], out=addressM);
+
+
+
+    // addressM //
+
+
+
+    // 4. Generate the writeM signal (memory write for RAM or Screen)
+    // writeM is true if it is a Memory Write operation or a Screen OUT operation
+    // writeM //
+   
+
+
+    // writeM //
+    Or(a=write, b=screenwrite, out=writeM);
+
+    
+    // 5. We load the PC with new value if there is a branch
+    // Branch can be conditional or unconditional
+    // Unconditional => In[15..12] = 1011
+    // Conditional => In[15..12] = 1001 && In[8..6]==000
+    // PC //
+
+    // Check if R1 is zero using Or 16 way
+    Or16Way(in=inX, out=beq1);
+    Not(in=beq1, out=beq2);
+    And(a=beq, b=beq2, out=beqout);
+
+    Or(a=jmp, b=beqout, out=PCload);
+
+    PC(in=Rx, load=PCload, inc=true, reset=Reset, out=PCOut);
+
+    // PC //
+}

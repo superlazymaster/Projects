@@ -1,0 +1,19 @@
+// Seshadithya Saravanan, 533007949
+
+/**
+ * And gate: 
+ * out = 1 if (a == 1 and b == 1)
+ *       0 otherwise
+ */
+
+CHIP And {
+    IN a, b;
+    OUT out;
+
+    PARTS:
+    // Put your code here:
+    // not nor or
+    Not(in=a, out=notA);
+    Not(in=b, out=notB);
+    Nor(a=notA, b=notB, out=out);
+}
