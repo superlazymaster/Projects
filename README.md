@@ -1,6 +1,6 @@
 - 👋 Hi, I’m @superlazymaster
-- 👀 I’m interested in Network Engineering 
-- 🌱 I’m currently learning Data Structures in C++, Haskell, and Computer Organization
+- 👀 I’m interested in Network Engineering, Hardware Design, and SWE and actively looking for an internship in any of these fields
+- 🌱 I’m currently learning about Computer Systems, Software Engineering, and Applied Cryptography
 - 📫 My Discord id is #Sesha9850
 - 😄 Pronouns: He/Him
 - ⚡ Fun fact: I completely rendered my hard drive unusable, neither readable or writable, trying to hackintosh my windows machine. It was filled with so many bad sectors. 
