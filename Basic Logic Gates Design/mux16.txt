@@ -1,0 +1,10 @@
+load chip_name,
+output-file file_name.out,
+compare-to file.cmp,
+output-list blah;
+
+set a 0,
+set b 0,
+set sel 0,
+eval,
+output;
