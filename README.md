@@ -1,5 +1,5 @@
 - 👋 Hi, I’m @superlazymaster
-- 👀 I’m interested in Network Engineering, Hardware Design, and SWE and actively looking for an internship in any of these fields
+- 👀 I’m interested in Network Engineering, Hardware Design, Cybersecurity and SWE and actively looking for an internship in any of these fields
 - 🌱 I’m currently learning about Computer Systems, Software Engineering, and Applied Cryptography
 - 📫 My Discord id is #Sesha9850
 - 😄 Pronouns: He/Him
